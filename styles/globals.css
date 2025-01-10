@@ -15,7 +15,7 @@
 }
 
 body {
-  color: var(--foreground);
-  background:#0a0a0a;
+  background-image: linear-gradient(to top right,#E72E2D,black);
+  height: 100vh;
   font-family: Arial, Helvetica, sans-serif;
 }

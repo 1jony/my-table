@@ -1,4 +1,4 @@
-import Image from "next/image";
+import styles from '../pages/index.module.css'
 import {
   Table,
   TableHeader,
@@ -10,20 +10,26 @@ import {
   Radio,
 } from "@nextui-org/react";
 import { useState } from "react";
-import { color } from "framer-motion";
 
+type ButtonType = "default" | "primary" | "secondary" | "success" | "warning" | "danger" ;
 export default function Home() {
-  const [selectedColor, setSelectedColor] = useState("success");
-
+  const [selectedColor, setSelectedColor] = useState<ButtonType>('default');
+  
   const colors = ["default", "primary", "secondary", "success", "warning", "danger"];
+  // Función para cambiar el tipo de botón
+  const changeButtonType = (event:string) => {
+    const value = event as ButtonType; // Aserción de tipo
+    setSelectedColor(value);
+  };
   return (
-    <div>
-  <div className="flex flex-col gap-3">
+    <div className={styles.container}>
+  <div className={styles.contTable}>
       <Table
         aria-label="Example static collection table"
         color={selectedColor}
-        defaultSelectedKeys={["2"]}
-        selectionMode="single"
+        defaultSelectedKeys={["2", "3"]}
+        disabledKeys={["1", ]}
+        selectionMode="multiple"
       >
         <TableHeader>
           <TableColumn>NAME</TableColumn>
@@ -57,10 +63,10 @@ export default function Home() {
         label="Selection color"
         orientation="horizontal"
         value={selectedColor}
-        onValueChange={setSelectedColor}
+        onValueChange={changeButtonType}
       >
         {colors.map((color) => (
-          <Radio key={color}  className="capitalize" color="success" value={color}>
+          <Radio key={color} className="capitalize" color={selectedColor} value={color}>
             {color}
           </Radio>
         ))}
