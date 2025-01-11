@@ -2,11 +2,14 @@
 "use client"; // Habilita el cliente en este componente
 import styles from './login.module.css'
 import Image from 'next/image'
-import logoMArver from '../../public/loginImage/logo marver.png'
+import logoMArver from '@/public/loginImage/logo marver.png'
 import { useState} from 'react';
 import React from 'react';
 import { useRouter } from 'next/router';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import VisibilityIcon from '@mui/icons-material/Visibility';
 export default  function Login() {
+    const [viewPass,setViewPass] = useState<boolean>(false);
     const [formData,setFormData] = useState({
         sucursal:"",
         user:"",
@@ -52,7 +55,12 @@ export default  function Login() {
                     <span style={{visibility:formData.sucursal ==="" || formData.sucursal ==="default'" ?"visible":"hidden"}}> Selecciones una sucursal.</span>
                     <input name='user' placeholder='Almacen' type='text'></input>
                     <span style={{visibility:formData.user ==="" ?"visible":"hidden"}}> Usuario requerido.</span>
-                    <input name='password' placeholder='********' type='password'></input>
+                    <div  className={styles.contPass}>
+                        <input name='password' placeholder='********' type={viewPass? 'password':'text'}></input>
+                        <span onClick={()=>setViewPass(!viewPass)}>
+                            {viewPass ?<VisibilityOffIcon  sx={{color:'#f31260'}}/>:<VisibilityIcon sx={{color:'#f31260'}}/>}
+                        </span>
+                    </div>
                     <span style={{visibility:formData.password ==="" ? "visible":"hidden"}}>Contraseña requerida.</span>
                     <button type="submit">Inicia sesión</button>
                 </form>
